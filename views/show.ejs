@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>show all the images</h3>
+    <% files.forEach(function(file){ %>
+        <img style="width: 500px;"  src="data:photo/jpeg;base64, <%= file.photo.toString('base64') %>" alt="">
+    <% }) %>
+    
+</body>
+</html>

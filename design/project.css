@@ -1,0 +1,267 @@
+
+/* General Styles */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: Arial, sans-serif;
+background-color: #f4f4f4;
+display: flex;
+flex-direction: column;
+align-items: center;
+min-height: 100vh;
+padding: 20px;
+}
+
+/* Header */
+.header {
+width: 100%;
+max-width: 800px;
+background-color: #fff;
+border-radius: 8px;
+padding: 20px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header .title {
+font-size: 24px;
+font-weight: bold;
+color: #333;
+padding-bottom:10px;
+}
+
+.header .toggle-view-btn,
+.header .add-btn {
+background-color: #007BFF;
+color: #fff;
+border: none;
+padding: 10px 20px;
+font-size: 14px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.header .toggle-view-btn:hover,
+.header .add-btn:hover {
+background-color: #0056b3;
+}
+
+/* Project Container */
+.project-container {
+width: 100%;
+max-width: 800px;
+background-color: #fff;
+border-radius: 8px;
+padding: 20px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid and List View Styles */
+.project-container.list-view .project-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+padding: 15px;
+border-bottom: 1px solid #e0e0e0;
+}
+
+/* Grid View Specific Adjustments */
+.project-container.grid-view {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 20px;
+padding-top: 20px; /* Add space between header and first grid item */
+}
+
+.project-container.grid-view .project-header {
+display: none;/*grid-column: 1 / -1;  Header spans full width */
+}
+
+.project-container.grid-view .project-item {
+display: grid;
+grid-template-areas:
+"status title"
+"status details"
+"status actions";
+grid-template-columns: 1fr 2fr;
+gap: 10px;
+border-radius: 10px;
+border: 1px solid #e0e0e0;
+padding: 15px;
+align-items: center;
+}
+
+.project-container.grid-view .status {
+grid-area: status;
+}
+
+.project-container.grid-view .project-name {
+grid-area: title;
+}
+
+.project-container.grid-view .project-subtitle,
+.project-container.grid-view .avatars {
+grid-area: details;
+}
+
+.project-container.grid-view .btn-edit {
+grid-area: actions;
+justify-self: start;
+}
+.project-container.grid-view .btn-delete {
+grid-area: actions;
+justify-self: end;
+}
+/* Project Header */
+.project-header {
+display: flex;
+justify-content: flex-start;
+padding-bottom: 10px;
+border-bottom: 2px solid #e0e0e0;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.project-header div {
+width: 33%;
+text-align: left;
+}
+
+/* Project Item */
+.project-item .status,
+.project-item .project-name {
+text-align: left;
+}
+
+.project-title {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 12px;
+}
+.status {
+text-align: center;
+flex-basis: 15%;
+padding-right: 10px;
+position: relative;
+}
+
+.project-status {
+font-size: 14px;
+color: #fff;
+padding: 5px 10px;
+border-radius: 5px;
+display: inline-block;
+}
+
+.pending {
+background-color: #007BFF;
+}
+
+.completed {
+background-color: #32CD32;
+}
+
+.canceled {
+background-color: #FF6347;
+}
+
+.project-percent {
+font-size: 24px;
+font-weight: bold;
+margin-top: 10px;
+}
+.project-name {
+flex-basis: 75%;
+text-align: left;
+}
+
+.project-title {
+font-size: 18px;
+font-weight: bold;
+color: #333;
+margin-bottom: 12px;
+}
+.project-subtitle {
+font-size: 14px;
+color: #acacac;
+}
+
+.avatars {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}	
+.avatar-user {
+width: 30px;
+height: 30px;
+border-radius: 50%;
+margin-right: -14px;
+
+}
+
+.avatar-user img {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+border: 1px solid #ff0000;
+}
+
+.btn-edit {
+background-color: #007BFF;
+color: #fff;
+border: none;
+padding: 8px 12px;
+font-size: 14px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+margin-left: 20px;
+}
+
+.btn-edit:hover {
+background-color: #0056b3;
+}
+
+.btn-delete {
+background-color: #FF0000;
+color: #fff;
+border: none;
+padding: 8px 12px;
+font-size: 14px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+margin-left: 20px;
+}
+
+.btn-delete:hover {
+background-color: #e53131;
+}
+
+.progress{
+position: relative;
+margin: 4px;
+float:left;
+text-align: center;
+}
+.barOverflow{ /* Wraps the rotating .bar */
+position: relative;
+overflow: hidden; /* Comment this line to understand the trick */
+width: 90px; height: 45px; /* Half circle (overflow) */
+margin-bottom: -14px; /* bring the numbers up */
+}
+.bar{
+position: absolute;
+top: 0; left: 0;
+width: 90px; height: 90px; /* full circle! */
+border-radius: 50%;
+box-sizing: border-box;
+border: 12px solid #eee;     /* half gray, */
+border-bottom-color: #0bf;  /* half azure */
+border-right-color: #0bf;
+}	

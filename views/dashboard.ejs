@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="/project.css">
+    <link rel="stylesheet" href="/button.css">
+    <title>Dashboard</title>
+
+</head>
+
+<body>
+    <h2>welcome to the dashboard</h2><br><br>
+
+    <button id="create" class="create-button" onclick="window.location.href='/createfile'">
+        <span>Create New File</span>
+    </button>
+
+    
+
+    <div class="header">
+        <div class="title">Projects List</div>
+        <button class="toggle-view-btn">Toggle Grid/List</button>
+        <button class="add-btn" id="add-project-btn">Add New Project</button>
+    </div>
+    <div class="project-container list-view">
+
+        <div class="project-header">
+            <div class="status">Status</div>
+            <div class="project-name" style="padding-left:25px">Project</div>
+            <div style="text-align: right;padding-right:25px">Actions</div>
+        </div>
+
+        <!-- Project Items -->
+        <% for(let i = 0; i <view.length; i++){ %>
+            <div class="project-item">
+                <div class="status">
+                    <div class="progress">
+                        <div class="barOverflow">
+                            <div class="bar"></div>
+                        </div>
+                        <span>6</span>%
+                    </div>
+                    <div class="project-status pending">Pending</div>
+                </div>
+                <div class="project-name">
+                    <div class="project-title"> <%= view[i] %> </div>
+                    <div class="project-subtitle">
+                        <span>Start 09:00</span> - <span>End 10:00</span>
+                    </div>
+                    <div class="avatars">
+                        <span>Team: </span>
+                        <div class="avatar-user">
+                            <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Avatar User">
+                        </div>
+                        <div class="avatar-user">
+                            <img src="https://randomuser.me/api/portraits/women/4.jpg" alt="Avatar User">
+                        </div>
+                        <div class="avatar-user">
+                            <img src="https://randomuser.me/api/portraits/women/7.jpg" alt="Avatar User">
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-edit" onclick="window.location.href='/open/<%= view[i] %>'">Edit</button>
+                <button class="btn-delete" onclick="window.location.href='/delete/<%= view[i] %>'">Delete</button>
+            </div>
+         <% } %>
+        
+
+        <!-- Project 2: Canceled -->
+        <div class="project-item">
+            <div class="status">
+                <div class="progress">
+                    <div class="barOverflow">
+                        <div class="bar"></div>
+                    </div>
+                    <span>0</span>%
+                </div>
+                <div class="project-status canceled">Canceled</div>
+            </div>
+            <div class="project-name">
+                <div class="project-title">Project 2</div>
+                <div class="project-subtitle">
+                    <span>Start 14:00</span> - <span>End 15:00</span>
+                </div>
+                <div class="avatars">
+                    <span>Team: </span>
+                    <div class="avatar-user">
+                        <img src="https://randomuser.me/api/portraits/men/5.jpg" alt="Avatar User">
+                    </div>
+                    <div class="avatar-user">
+                        <img src="https://randomuser.me/api/portraits/women/6.jpg" alt="Avatar User">
+                    </div>
+                    <div class="avatar-user">
+                        <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Avatar User">
+                    </div>
+                </div>
+            </div>
+            <button class="btn-edit">Edit</button>
+            <button class="btn-delete">Delete</button>
+        </div>
+
+        <!-- Project 3: Completed -->
+        <div class="project-item">
+            <div class="status">
+                <div class="progress">
+                    <div class="barOverflow">
+                        <div class="bar"></div>
+                    </div>
+                    <span>100</span>%
+                </div>
+
+                <div class="project-status completed">Completed</div>
+            </div>
+            <div class="project-name">
+                <div class="project-title">Project 3</div>
+                <div class="project-subtitle">
+                    <span>Start 11:00</span> - <span>End 12:00</span>
+                </div>
+                <div class="avatars">
+                    <span>Team: </span>
+                    <div class="avatar-user">
+                        <img src="https://randomuser.me/api/portraits/men/7.jpg" alt="Avatar User">
+                    </div>
+                    <div class="avatar-user">
+                        <img src="https://randomuser.me/api/portraits/women/8.jpg" alt="Avatar User">
+                    </div>
+                    <div class="avatar-user">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Avatar User">
+                    </div>
+                </div>
+            </div>
+            <button class="btn-edit">Edit</button>
+            <button class="btn-delete">Delete</button>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+        document.getElementById('add-project-btn').addEventListener('click', () => {
+            window.location.href = '/createfile';
+        });
+
+
+
+        // Toggle between grid and list views
+        const toggleButton = document.querySelector('.toggle-view-btn');
+        const projectContainer = document.querySelector('.project-container');
+
+        toggleButton.addEventListener('click', () => {
+            projectContainer.classList.toggle('grid-view');
+            projectContainer.classList.toggle('list-view');
+        });
+
+
+        $(".progress").each(function () {
+            var $bar = $(this).find(".bar");
+            var $val = $(this).find("span");
+            var perc = parseInt($val.text(), 10);
+
+            $({ p: 0 }).animate({ p: perc }, {
+                duration: 3000,
+                easing: "swing",
+                step: function (p) {
+                    $bar.css({
+                        transform: "rotate(" + (45 + (p * 1.8)) + "deg)",
+                    });
+                    $val.text(p | 0);
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

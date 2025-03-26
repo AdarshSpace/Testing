@@ -1,0 +1,22 @@
+:root {
+	font-family: "IBM Plex Sans", sans-serif;
+}
+a {
+	color: aqua;
+	text-decoration: underline;
+}
+pre {
+	padding: 30px;
+	background-color: #f5f2f2;
+	border-radius: 10px;
+	display: inline-block;
+}
+code {
+	padding: 10px;
+	background-color: #141414;
+	color: white;
+	display: block;
+	border-radius: 10px;
+	box-shadow: 10px 10px 20px grey, -10px -10px 20px white, 5px 5px 5px black inset;
+	text-shadow: 5px 5px 5px black, -2px -2px 2px #212121;
+}
