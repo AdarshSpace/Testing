@@ -89,7 +89,9 @@ app.post('/docs', upload.single('photo'), async (req, res) => {
         console.log('Error: please check docs route.', err); 
     }
 })
-
+app.get('/read', (req, res) => {
+    res.send('newRoute will work well.');
+})
 
 app.get('/show', async (req, res) => {
     let files = await docsModel.find();

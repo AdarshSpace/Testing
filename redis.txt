@@ -17,3 +17,19 @@ await client.set('foo', 'bar');
 const result = await client.get('foo');
 console.log(result)  // >>> bar
 
+
+
+Render
+1. git clone url_repo
+2. nodejs - install
+3. npm i  - install packages
+4. node server.js
+
+
+Amazon - Terminal
+1. git clone https://github.com/AdarshSpace/Khataa-book.git
+2. download nodejs: 
+   node -v  
+   npm -v
+3. npm i
+4. node server.js
