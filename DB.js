@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/Khatabook')
+const mongoURL = process.env.mongoURL;
+mongoose.connect(mongoURL)
     .then(() => console.log('Database connected successfully'))
     .catch(err => console.log('Error: something went wrong', err));
 

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -9,6 +10,8 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const sharp = require('sharp');
+const redis = require('redis');
+const PORT = process.env.PORT || 3210;
 
 app.use(express.static(path.join(__dirname, 'design')));
 app.use(cookieParser());
@@ -46,6 +49,19 @@ function fileFilter(req, file, cb){
 const upload = multer({storage, fileFilter, limits: {fileSize: 6*1024*1024}});
 
 
+const client = redis.createClient({
+    username: 'default',
+    password: 'I9UGyRIJOkorf8t9hBT3jdeCxMx9gXFC',
+    socket: {
+        host: 'redis-18474.c305.ap-south-1-1.ec2.redns.redis-cloud.com',
+        port: 18474
+    }
+});
+
+client.on('connect', () => {console.log('Redis connected')});
+client.on('error', (error) => {console.log('redis error : ', error)});
+
+client.connect();
 
 
 app.set('view engine', 'ejs');
@@ -185,4 +201,4 @@ app.get('/delete/:filename', verifyToken, async (req, res) => {
 
 
 
-app.listen(3210);
+app.listen(PORT);
