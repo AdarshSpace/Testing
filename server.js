@@ -45,10 +45,10 @@ function fileFilter(req, file, cb){
         cb(new Error('file not found'), false);
     }
 }
-
 const upload = multer({storage, fileFilter, limits: {fileSize: 6*1024*1024}});
 
 
+//set-up Redis to store cache
 const client = redis.createClient({
     username: 'default',
     password: 'I9UGyRIJOkorf8t9hBT3jdeCxMx9gXFC',
@@ -62,6 +62,7 @@ client.on('connect', () => {console.log('Redis connected')});
 client.on('error', (error) => {console.log('redis error : ', error)});
 
 client.connect();
+
 
 
 app.set('view engine', 'ejs');
@@ -176,7 +177,11 @@ app.get('/open/:filename', verifyToken, async (req, res) => {
         let filename = req.params.filename;
         const user = await usermodel.list.findOne({ filename: filename });
         const filedata = { filename: user.filename, description: user.description };
+
+        await client.set(`filedata:description:${filedata.description}`, JSON.stringify(filedata));
+
         res.render('openfile', { file: filedata });
+
     }
     catch (err) {
         res.send('Error: Open filename shows err.');
@@ -194,7 +199,10 @@ app.post('/Resave', verifyToken, async (req, res) => {
             document.description = description;
             await document.save();  
         }
+
         else { console.log('Error: Document not found', err)};
+
+
         
         res.redirect('/dashboard');
     }

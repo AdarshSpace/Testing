@@ -23,6 +23,8 @@ const khata = new mongoose.Schema({
 })
 const data = mongoose.model('user', khata);
 
+
+
 const project = new mongoose.Schema({
 
    user: {
@@ -39,5 +41,7 @@ const project = new mongoose.Schema({
    },
 })
 const list = mongoose.model('Details',  project);
+
+
 
 module.exports =  { data, list };
