@@ -159,7 +159,10 @@ app.post('/save', verifyToken, async (req, res) => {
     try {
         let userId = req.user.id;
         let { filename, description } = req.body;
-        const user = await usermodel.list.create({user: userId, filename, description});
+        const details = await usermodel.list.create({user: userId, filename, description});
+        const user = await usermodel.data.findOne({_id: userId,});
+        user.folder.push(details._id);
+        await user.save();
     
         res.redirect('/dashboard');
     }
