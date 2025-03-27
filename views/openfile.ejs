@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
 </head>
+
 <body>
-   <span> <%= file.filename %> </span> <br><br>
-    <textarea name="description" id="description"> <%= file.description %> </textarea>
+    <form action="/Resave"  method="post">
+        <span>
+            <%= file.filename %>
+        </span> <br><br>
+        <input type="hidden" name="filename" value="<%= file.filename %>">
+        <textarea name="description" id="description"> <%= file.description %> </textarea>
+        <button>save</button>
+    </form>
 </body>
+
 </html>

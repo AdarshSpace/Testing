@@ -89,14 +89,12 @@ app.post('/docs', upload.single('photo'), async (req, res) => {
         console.log('Error: please check docs route.', err); 
     }
 })
-app.get('/read', (req, res) => {
-    res.send('newRoute will work well.');
-})
-
 app.get('/show', async (req, res) => {
     let files = await docsModel.find();
     res.render('show', {files});
 })
+
+
 
 app.get('/login', (req, res) => {
     res.render('login');
@@ -112,8 +110,6 @@ app.post('/sing-up', async (req, res) => {
         let encrypt = await bcrypt.hash(password, salt);
         let enrty = await usermodel.data.create({ name, email, password: encrypt });
         res.redirect('/login');
-        console.log("sign-up successfully");
-
     }
     catch (error) {
         console.log('Error: something went wrong');
@@ -136,19 +132,13 @@ app.post('/logged-in', async (req, res) => {
 
         const jwtToken = jwt.sign({ email: user.email, id: user._id, iss: 'motionkartstudio.com', }, secretkey);
         res.cookie('token', jwtToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-        console.log(jwtToken);
-
-        let decoded = jwt.decode(jwtToken, secretkey);
-        console.log(decoded);
-
-
-
-        console.log('logged-in successfully');
+    
         res.redirect('/dashboard');
 
     }
     catch (error) {
         console.log('Error: logged-in Data');
+        res.send('Error: logged-in Data');
     }
 })
 app.get('/dashboard', verifyToken, async (req, res) => {
@@ -167,13 +157,14 @@ app.get('/createfile', verifyToken, (req, res) => {
 })
 app.post('/save', verifyToken, async (req, res) => {
     try {
-        console.log(req.body);
+        let userId = req.user.id;
         let { filename, description } = req.body;
-        const user = await usermodel.list.create(req.body);
-        console.log('Data saved');
+        const user = await usermodel.list.create({user: userId, filename, description});
+    
         res.redirect('/dashboard');
     }
     catch {
+        res.send('Error: check your save file, Data not saved');
         console.log('Error: check your save file, Data not saved');
     }
 })
@@ -187,6 +178,26 @@ app.get('/open/:filename', verifyToken, async (req, res) => {
     catch (err) {
         res.send('Error: Open filename shows err.');
         console.log('Error: Open filename shows err.');
+    }
+})
+app.post('/Resave', verifyToken, async (req, res) => {
+    try {
+        
+        let { filename, description } = req.body;
+        let userId = req.user.id;
+        const document = await usermodel.list.findOne({ user: userId, filename });
+        
+        if(document) {
+            document.description = description;
+            await document.save();  
+        }
+        else { console.log('Error: Document not found', err)};
+        
+        res.redirect('/dashboard');
+    }
+    catch {
+        res.send('Error:check your Resave file, Data not saved');
+        console.log('Error: check your Resave file, Data not saved');
     }
 })
 app.get('/delete/:filename', verifyToken, async (req, res) => {

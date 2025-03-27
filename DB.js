@@ -6,15 +6,37 @@ mongoose.connect(mongoURL)
 
 
 const khata = new mongoose.Schema({
-   name: String,
-   email: String,
-   password: String,
+   name: {
+      type: String,
+      
+   },
+   email: {
+      type: String,
+      required: true
+   },
+   password: {
+      type: String,
+      required: true
+   },
+   folder: [{type: mongoose.Schema.Types.ObjectId, ref: 'details'}]
+
 })
 const data = mongoose.model('user', khata);
 
 const project = new mongoose.Schema({
-   filename: String,
-   description: { type: String },
+
+   user: {
+      type: mongoose.Schema.Types.ObjectId, ref: 'user'
+   },
+
+   filename: {
+      type: String,
+      required: true
+   },
+   description: {
+      type: String,
+      required: true
+   },
 })
 const list = mongoose.model('Details',  project);
 
