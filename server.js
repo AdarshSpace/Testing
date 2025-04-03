@@ -231,5 +231,8 @@ app.get('/testing', (req, res)=>{
     res.send('Testing is working.....');
 })
 
+app.get('/testing2', (req, res)=>{
+    res.send('Testing2222222 is working.....');
+})
 
 app.listen(PORT);
