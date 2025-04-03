@@ -227,6 +227,9 @@ app.get('/delete/:filename', verifyToken, async (req, res) => {
     }
 })
 
+app.get('/testing', (req, res)=>{
+    res.send('Testing is working.....');
+})
 
 
 app.listen(PORT);
