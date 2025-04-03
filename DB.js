@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-const mongoURL = process.env.mongoURL;
+//const mongoURL = process.env.mongoURL;
+
+const mongoURL = 'mongodb+srv://adarshspace:Adarsh79923@cluster0.h6vwm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
 mongoose.connect(mongoURL)
     .then(() => console.log('Database connected successfully'))
     .catch(err => console.log('Error: something went wrong', err));

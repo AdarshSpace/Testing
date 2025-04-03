@@ -11,7 +11,8 @@ const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const sharp = require('sharp');
 const redis = require('redis');
-const PORT = process.env.PORT || 3210;
+//const PORT = process.env.PORT || 3210;
+const PORT = 3210;
 
 app.use(express.static(path.join(__dirname, 'design')));
 app.use(cookieParser());
@@ -175,6 +176,8 @@ app.post('/save', verifyToken, async (req, res) => {
 app.get('/open/:filename', verifyToken, async (req, res) => {
     try {
         let filename = req.params.filename;
+        // check data exists in redis or not
+
         const user = await usermodel.list.findOne({ filename: filename });
         const filedata = { filename: user.filename, description: user.description };
 
@@ -215,6 +218,7 @@ app.get('/delete/:filename', verifyToken, async (req, res) => {
     try {
         let filename = req.params.filename;
         const deleteduser = await usermodel.list.findOneAndDelete({ filename: filename });
+        const deletedfile = await usermodel.data.findOneAndDelete({ filename: filename });
         res.redirect('/dashboard');
     }
     catch {
